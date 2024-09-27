@@ -10,19 +10,22 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                // Use 'bat' for Windows
+                bat 'mvn clean install'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                // Use 'bat' for Windows
+                bat 'mvn test'
             }
         }
 
         stage('Code Coverage') {
             steps {
-                jacoco execPattern: '**/target/jacoco.exec'
+                // Use 'bat' for Windows
+                bat 'mvn jacoco:report'
             }
         }
     }

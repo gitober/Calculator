@@ -1,9 +1,8 @@
-LABEL authors="bober"
-
-ENTRYPOINT ["top", "-b"]
-
 # Use an official Maven image as a parent image
 FROM maven:latest
+
+# Set metadata information
+LABEL authors="bober"
 
 # Set the working directory in the container
 WORKDIR /app
@@ -17,5 +16,5 @@ COPY . /app/
 # Package your application
 RUN mvn package
 
-# Run the main class (assuming your application has a main class)
+# Run the application
 CMD ["java", "-jar", "target/Calculator.jar"]

@@ -1,11 +1,10 @@
-
 pipeline {
     agent any
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/gitober/Calculator.git' branch: 'main'
+                git url: 'https://github.com/gitober/Calculator', branch: 'main'
             }
         }
 
@@ -30,9 +29,14 @@ pipeline {
 
     post {
         always {
+            // Publish JUnit test results
             junit '**/target/surefire-reports/*.xml'
-            jacoco execPattern: '**/target/jacoco.exec'
+
+            // Publish JaCoCo code coverage report
+            jacoco execPattern: '**/target/jacoco.exec',
+                   classPattern: '**/target/classes',
+                   sourcePattern: '**/src/main/java',
+                   inclusionPattern: '**/*.class'
         }
     }
 }
-
